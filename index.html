@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TwiTips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef3ff;
+  --bg2: #e4ecff;
+  --card: #ffffff;
+  --card2: #f5f8ff;
+  --border: rgba(99,140,255,0.18);
+  --border-hover: rgba(59,107,255,0.4);
+  --blue-1: #3b6bff;
+  --blue-2: #5580f0;
+  --blue-3: #7b9fff;
+  --blue-soft: rgba(59,107,255,0.07);
+  --blue-glow: rgba(59,107,255,0.12);
+  --text: #1a2444;
+  --text-2: #4a5d8a;
+  --text-3: #8a9dc4;
+  --accent: #4f7bff;
+  --accent-dim: rgba(79,123,255,0.15);
+  --red: #e03e3e;
+  --red-dim: rgba(224,62,62,0.1);
+  --green: #18a06a;
+  --green-dim: rgba(24,160,106,0.1);
+  --tag1: rgba(59,107,255,0.1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 10% 0%, rgba(150,180,255,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 90% 100%, rgba(180,200,255,0.2) 0%, transparent 60%);
+}
+
+/* ── HEADER ── */
+header {
+  padding: 3.5rem 2rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #dce9ff 0%, var(--bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 180px;
+  background: radial-gradient(ellipse, rgba(100,150,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3.4rem;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #1a3acc 0%, #5e8aff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.4rem;
+}
+.tagline {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 1.8rem;
+}
+.stat { text-align: center; }
+.stat strong { display: block; font-family: 'Instrument Serif', serif; font-size: 1.9rem; color: var(--blue-1); line-height: 1; }
+.stat span { font-size: 0.68rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(238,243,255,0.95);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.tab {
+  padding: 0.8rem 1.4rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+  bottom: -1px;
+}
+.tab:hover { color: var(--blue-2); }
+.tab.active { color: var(--blue-1); border-bottom-color: var(--blue-1); }
+.tab .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  background: var(--red-dim);
+  color: var(--red);
+  border-radius: 50%;
+  font-size: 0.65rem;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+/* ── FILTERS ── */
+.filter-bar {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.filter-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3); margin-right: 0.3rem; font-weight: 700; }
+.filter-btn {
+  padding: 0.28rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-2);
+  letter-spacing: 0.04em;
+  transition: all 0.18s;
+  box-shadow: 0 1px 3px rgba(59,107,255,0.06);
+}
+.filter-btn:hover { border-color: var(--blue-2); color: var(--blue-2); background: var(--blue-soft); }
+.filter-btn.active { background: var(--blue-1); border-color: var(--blue-1); color: #fff; box-shadow: 0 2px 8px rgba(59,107,255,0.25); }
+
+/* ── BENTO GRID ── */
+main { padding: 1.5rem 2rem 3rem; }
+.bento-grid {
+  columns: 3;
+  column-gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) { .bento-grid { columns: 2; } }
+@media (max-width: 560px) { .bento-grid { columns: 1; } }
+
+/* ── TIP CARD ── */
+.tip-card {
+  break-inside: avoid;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(59,107,255,0.05);
+}
+.tip-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-1), var(--blue-3));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.tip-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(59,107,255,0.12); }
+.tip-card:hover::after { opacity: 1; }
+.tip-card.deleted { opacity: 0.5; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+}
+.streamer-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.67rem;
+  font-weight: 700;
+  color: var(--blue-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.streamer-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue-1);
+}
+.delete-btn {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.delete-btn:hover { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+.restore-btn {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.restore-btn:hover { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+.tip-text {
+  font-size: 0.875rem;
+  line-height: 1.68;
+  color: var(--text);
+  margin-bottom: 0.9rem;
+  font-weight: 400;
+}
+
+.screenshot-zone { margin-bottom: 0.8rem; }
+.screenshot-zone img { width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block; }
+.screenshot-placeholder {
+  width: 100%;
+  border-radius: 10px;
+  border: 1.5px dashed rgba(59,107,255,0.2);
+  padding: 0.55rem;
+  text-align: center;
+  font-size: 0.68rem;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all 0.18s;
+  background: transparent;
+  letter-spacing: 0.04em;
+}
+.screenshot-placeholder:hover { border-color: var(--blue-2); color: var(--blue-2); background: var(--blue-soft); }
+
+.card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+.cat-tag {
+  font-size: 0.63rem;
+  padding: 0.2rem 0.55rem;
+  background: var(--tag1);
+  color: var(--blue-2);
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border: 1px solid rgba(59,107,255,0.15);
+}
+.vod-link {
+  font-size: 0.63rem;
+  padding: 0.22rem 0.65rem;
+  background: var(--blue-soft);
+  color: var(--blue-1);
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(59,107,255,0.18);
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: auto;
+  letter-spacing: 0.03em;
+}
+.vod-link:hover { background: var(--blue-1); border-color: var(--blue-1); color: #fff; }
+.vod-link::before { content: '▶'; font-size: 0.5rem; }
+
+/* deleted panel */
+.deleted-panel { display: none; padding: 1.5rem 2rem 3rem; }
+.deleted-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-3);
+  font-size: 0.85rem;
+}
+.deleted-empty span { display: block; font-size: 2.5rem; margin-bottom: 0.6rem; opacity: 0.4; }
+
+input[type=file] { display: none; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(59,107,255,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(59,107,255,0.35); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">TwiTips</div>
+  <div class="tagline">Art tips from Twitch live streams</div>
+  <div class="stats-row">
+    <div class="stat"><strong id="stat-total">60</strong><span>Tips</span></div>
+    <div class="stat"><strong>7</strong><span>VODs</span></div>
+    <div class="stat"><strong>8</strong><span>Catégories</span></div>
+    <div class="stat"><strong>1</strong><span>Streamers</span></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('tips',this)">Tips</button>
+  <button class="tab" onclick="switchTab('deleted',this)">Supprimés <span class="badge" id="deleted-badge" style="display:none">0</span></button>
+</div>
+
+<div id="tab-tips">
+  <div class="filter-bar">
+    <span class="filter-label">Filtrer :</span>
+    <button class="filter-btn active" onclick="filter('all',this)">Tout</button>
+    <button class="filter-btn" onclick="filter('meca',this)">Mecha</button>
+    <button class="filter-btn" onclick="filter('render',this)">Render</button>
+    <button class="filter-btn" onclick="filter('design',this)">Design</button>
+    <button class="filter-btn" onclick="filter('silhouette',this)">Silhouette</button>
+    <button class="filter-btn" onclick="filter('workflow',this)">Workflow</button>
+    <button class="filter-btn" onclick="filter('portfolio',this)">Portfolio</button>
+    <button class="filter-btn" onclick="filter('mindset',this)">Mindset</button>
+    <button class="filter-btn" onclick="filter('pratique',this)">Pratique</button>
+  </div>
+  <main><div class="bento-grid" id="bento"></div></main>
+</div>
+
+<div id="tab-deleted" class="deleted-panel">
+  <div class="deleted-empty" id="deleted-empty"><span>🗑</span>Aucun tip supprimé pour l'instant.</div>
+  <div class="bento-grid" id="bento-deleted"></div>
+</div>
+
+<input type="file" id="file-input" accept="image/*">
+
+<script>
+const TIPS = [
+  { id:1, cat:'meca', streamer:'Axiominus', text:"En mecha, le plus important c'est pas que tout soit mécaniquement juste — c'est que ça se tienne debout. Il faut se dire 'est-ce qu'il peut bouger son bras sans que rien l'en empêche ?' L'aspect design ne doit pas contraindre la fonctionnalité.", vod:'2733789329', tc:'21m13s' },
+  { id:2, cat:'meca', streamer:'Axiominus', text:"Le mecha permet de 'tricher' — on cherche pas à expliquer le mécanisme en détail, on cherche juste que ça soit logique visuellement. C'est pas si différent d'une armure : l'armure doit être pensée pour que le personnage puisse bouger.", vod:'2733789329', tc:'22m05s' },
+  { id:3, cat:'meca', streamer:'Axiominus', text:"Pour bien faire du mecha, il faudrait s'intéresser davantage à la mécanique pure — certains joints, moteurs — pour avoir plus de vocabulaire sur le fonctionnement de ces trucs. La connaissance technique nourrit le design.", vod:'2733789329', tc:'18m10s' },
+  { id:4, cat:'meca', streamer:'Axiominus', text:"Sur un design mecha, travailler les membres sur des calques séparés c'est plus propre — détacher le bras, la jambe, les faire à part.", vod:'2733789329', tc:'29m31s' },
+  { id:5, cat:'meca', streamer:'Axiominus', text:"Quand on manque d'inspiration sur un design mecha, prendre des références de costumes (majordome, soldat...) et les incorporer — simuler des vêtements mais en pièces de robot. Ça donne de la personnalité et un concept plus fort.", vod:'2732044529', tc:'09m51s' },
+  { id:6, cat:'meca', streamer:'Axiominus', text:"Quand on a du mal ou qu'on est pas inspiré, on a tendance à faire des lignes beaucoup plus épaisses inconsciemment. C'est un signal à reconnaître — prendre des références, changer d'approche.", vod:'2732044529', tc:'10m25s' },
+  { id:7, cat:'meca', streamer:'Axiominus', text:"Pour concevoir un robot, commencer par designer le châssis (la base mécanique, l'exosquelette simplifié) avant d'habiller. Se perdre dans le design décoratif avant d'avoir une structure solide c'est une erreur classique.", vod:'2730407206', tc:'18m28s' },
+  { id:8, cat:'meca', streamer:'Axiominus', text:"Quand on est trop perdu dans la line d'un mecha, revenir aux aplats — couleur, valeur — plutôt que de continuer en dessin linéaire. Penser couleur et valeur en amont aide à avoir quelque chose d'impactant.", vod:'2730407206', tc:'04m45s' },
+  { id:9, cat:'meca', streamer:'Axiominus', text:"Si on fait un mecha, lui donner un but précis — un sport, un métier, un rôle — plutôt que de faire juste un humanoïde générique. Le concept narratif derrière le design change tout à la créativité des formes.", vod:'2730407206', tc:'20m37s' },
+  { id:10, cat:'meca', streamer:'Axiominus', text:"Sur un Mecha Tumblr (challenge 30 jours), être humble sur la qualité de render pour tenir le rythme. Le design en profondeur compte plus que le polish.", vod:'2732044529', tc:'15m19s' },
+  { id:11, cat:'render', streamer:'Axiominus', text:"Si vous faites bien le render de la tête et du buste, et que vous faites bien les mains, le cerveau fait le reste tout seul. Concentrer l'effort sur ces zones donne une impression que tout est bien défini.", vod:'2732844990', tc:'26m43s' },
+  { id:12, cat:'render', streamer:'Axiominus', text:"La zone la plus détaillée doit être le point focal. Plus on s'en éloigne, plus ça doit être des grosses formes, plus doux. C'est aussi là qu'on place les couleurs les plus uniques.", vod:'2730407206', tc:'01m26s' },
+  { id:13, cat:'render', streamer:'Axiominus', text:"Pour un concept, savoir s'arrêter. Si on veut aller plus loin sur le render il faudrait y passer beaucoup plus de temps — pour un concept ça suffit.", vod:'2733789329', tc:'12m39s' },
+  { id:14, cat:'render', streamer:'Axiominus', text:"Pour avoir un render vraiment clean, il faut d'abord bien travailler le croquis — quitte à refaire une line rapide pour valider certains éléments. Un croquis bruyant donne un render bruyant.", vod:'2732380954', tc:'17m23s' },
+  { id:15, cat:'render', streamer:'Axiominus', text:"Différencier les matériaux entre eux — métal brillant vs métal mat, cuir vs tissu. Si tous les matériaux ont le même traitement de rendu, le rendu paraît plat.", vod:'2732380954', tc:'00m05s' },
+  { id:16, cat:'render', streamer:'Axiominus', text:"Rajouter des ombres portées et du volume sur les zones qui en manquent. Un brush soft sur un calque séparé permet d'ajouter de la profondeur sans tout casser.", vod:'2732380954', tc:'13m15s' },
+  { id:17, cat:'render', streamer:'Axiominus', text:"Le rouge c'est toujours une win comme couleur d'accent sur un design. Même utilisé très ponctuellement, ça attire l'œil et donne de la vie.", vod:'2732044529', tc:'21m24s' },
+  { id:18, cat:'render', streamer:'Axiominus', text:"En passant à la colorisation, plein de choses peuvent être retravaillées au niveau du design en même temps. La colo révèle les problèmes de forme — c'est le moment de corriger.", vod:'2732044529', tc:'22m57s' },
+  { id:19, cat:'render', streamer:'Axiominus', text:"Quand on est fatigué, le render devient moins performant — c'est un signal à reconnaître. Soit on s'arrête, soit on passe sur des zones moins critiques. La fatigue se voit dans le travail.", vod:'2732380954', tc:'26m08s' },
+  { id:20, cat:'render', streamer:'Axiominus', text:"Faire sa line avec une couleur (plutôt que du noir) quand on peint de la chair. Une line colorée intègre mieux dans le paint final.", vod:'2728136190', tc:'00m49s' },
+  { id:21, cat:'design', streamer:'Axiominus', text:"Un design qui manque de recherche, ça se voit. Aller chercher des références solides avant de foncer dans l'exécution — surtout pour un design technique.", vod:'2732044529', tc:'01m39s' },
+  { id:22, cat:'design', streamer:'Axiominus', text:"Éviter de faire trop d'éléments de la même taille dans un design — ça crée de la répétition visuelle ennuyeuse. Varier les tailles des formes pour créer du rythme et de la hiérarchie.", vod:'2733789329', tc:'28m06s' },
+  { id:23, cat:'design', streamer:'Axiominus', text:"Attention au côté 'trop noisy' en termes de détails. Simple c'est bien — il n'y a pas besoin de too much. Savoir quand arrêter les détails c'est aussi une compétence de designer.", vod:'2733789329', tc:'01m44s' },
+  { id:24, cat:'design', streamer:'Axiominus', text:"La couleur change complètement la lecture d'un personnage. Un design anguleux avec des yeux rouges paraît agressif — changer pour du jaune le rend plus gentil. La couleur raconte quelque chose au-delà de la forme.", vod:'2733789329', tc:'27m48s' },
+  { id:25, cat:'design', streamer:'Axiominus', text:"J'aime le côté asymétrique dans les designs — une petite manchette d'un côté, un détail qui casse la symétrie. Un design très symétrique c'est souvent moins intéressant visuellement.", vod:'2730407206', tc:'16m09s' },
+  { id:26, cat:'design', streamer:'Axiominus', text:"Pour le character design, faire des designs fonctionnels et iconiques c'est vraiment dur malgré l'expérience. En cara, c'est la lisibilité et l'identité qui comptent avant tout.", vod:'2732044529', tc:'15m15s' },
+  { id:27, cat:'design', streamer:'Axiominus', text:"Se donner un challenge mensuel avec un thème précis — un objet du quotidien à redesigner, une catégorie de props — c'est une très bonne façon de progresser.", vod:'2731222981', tc:'20m05s' },
+  { id:28, cat:'design', streamer:'Axiominus', text:"Pour pimper un design, penser aux stickers, logos, marques, numéros de série, détails d'usure. Ça rend le design vivant et crédible.", vod:'2732380954', tc:'16m28s' },
+  { id:29, cat:'silhouette', streamer:'Axiominus', text:"Le sens de lecture de l'œil doit guider la composition. Les lignes directrices doivent amener l'œil jusqu'à l'élément principal — pas dans une direction opposée.", vod:'2732380954', tc:'17m23s' },
+  { id:30, cat:'silhouette', streamer:'Axiominus', text:"La pose par défaut 'debout statique' c'est boring. Même pour un concept, trouver une pose qui raconte quelque chose — ça change tout à la lecture.", vod:'2732380954', tc:'10m49s' },
+  { id:31, cat:'silhouette', streamer:'Axiominus', text:"Créer un espace négatif intentionnel — un bras écarté du corps — peut être intéressant pour comprendre la géométrie du personnage. L'espace vide fait partie du design autant que les formes pleines.", vod:'2732380954', tc:'18m07s' },
+  { id:32, cat:'silhouette', streamer:'Axiominus', text:"Un élément qui attire trop l'œil sans être le point focal pose un problème de lecture. Si quelque chose 'décrédibilise' l'élément important, soit l'enlever, soit le réduire visuellement.", vod:'2733789329', tc:'15m06s' },
+  { id:33, cat:'silhouette', streamer:'Axiominus', text:"Pour la présentation finale, tester les deux sens (flip horizontal). Le sens de lecture naturel fait qu'on regarde en premier l'élément à gauche.", vod:'2733789329', tc:'13m36s' },
+  { id:34, cat:'silhouette', streamer:'Axiominus', text:"Pour la perspective, si on n'a pas fait attention dès le début, ça crée des problèmes à corriger plus tard. La perspec c'est un truc à régler tôt, pas en finition.", vod:'2732380954', tc:'08m52s' },
+  { id:35, cat:'silhouette', streamer:'Axiominus', text:"Pour faire de bons personnages dynamiques, la gesture c'est un exercice qu'il faudrait faire beaucoup plus. Il se reconnaît encore peu performant en gesture — surtout pour les poses actives.", vod:'2730407206', tc:'14m56s' },
+  { id:36, cat:'workflow', streamer:'Axiominus', text:"Ne pas s'attarder sur les détails quand il reste de grosses zones non résolues. Finir les petits détails alors que d'autres parties ont encore des problèmes fondamentaux de forme ou de perspec, c'est une erreur classique.", vod:'2732380954', tc:'00m04s' },
+  { id:37, cat:'workflow', streamer:'Axiominus', text:"Travailler un élément incertain sur un calque séparé avant de fusionner — ça permet de tester sans risque.", vod:'2732380954', tc:'17m36s' },
+  { id:38, cat:'workflow', streamer:'Axiominus', text:"La line peut être gardée ou effacée selon les zones. Tester avec et sans sur certaines zones — la garder fine par endroit est souvent la meilleure option.", vod:'2733789329', tc:'23m12s' },
+  { id:39, cat:'workflow', streamer:'Axiominus', text:"Quand on est en panne d'inspiration en numérique, dessiner sur papier aide. Sur papier on prend moins l'envie d'être clean — on balance des shapes, on teste des trucs librement.", vod:'2732044529', tc:'22m25s' },
+  { id:40, cat:'workflow', streamer:'Axiominus', text:"Pour les studies : faire d'abord la studie la plus fidèle possible à la référence, puis la refaire de différentes façons — tester des styles, aller vers l'abstrait, le paint ou le line art pur.", vod:'2731222981', tc:'00m15s' },
+  { id:41, cat:'workflow', streamer:'Axiominus', text:"Quand on fait des sketches, travailler avec une brosse très fine à taille fixe plutôt qu'une brosse avec la pression de taille active. Ça force à construire proprement ses formes.", vod:'2731222981', tc:'07m14s' },
+  { id:42, cat:'workflow', streamer:'Axiominus', text:"Se balader sur Pinterest sans but précis de temps en temps — juste pour capter des trucs visuellement et se construire une bibliothèque graphique mentale.", vod:'2730407206', tc:'12m05s' },
+  { id:43, cat:'portfolio', streamer:'Axiominus', text:"Dans votre portfolio, avoir trop de pièces c'est contre-productif. Mieux vaut 5 ou 6 pièces vraiment bonnes que 20 pièces inégales — les recruteurs retiennent les moins bonnes.", vod:'2732380954', tc:'02m09s' },
+  { id:44, cat:'portfolio', streamer:'Axiominus', text:"Les professionnels regardent le niveau de finition de votre travail. Une pièce très bien finie mais moins complexe vaut souvent mieux qu'une pièce complexe mais inachevée.", vod:'2732380954', tc:'02m34s' },
+  { id:45, cat:'portfolio', streamer:'Axiominus', text:"Les pièces du portfolio doivent avoir des matériaux différenciés. Si tout a le même traitement de rendu, ça montre une limitation.", vod:'2732380954', tc:'03m51s' },
+  { id:46, cat:'portfolio', streamer:'Axiominus', text:"Dans un contexte professionnel, les références sont vraiment nécessaires. Avoir un design solide avec des références c'est le standard pro, pas une option.", vod:'2732380954', tc:'07m04s' },
+  { id:47, cat:'portfolio', streamer:'Axiominus', text:"Dans les écoles d'art, on ne parle pas assez des salaires, de comment négocier ses tarifs, du droit français appliqué aux artistes.", vod:'2732844990', tc:'05m12s' },
+  { id:48, cat:'portfolio', streamer:'Axiominus', text:"Se spécialiser sur quelque chose (props, mecha, cara) permet d'être vraiment bon dans ce domaine et d'être recruté pour ça.", vod:'2728136190', tc:'21m44s' },
+  { id:49, cat:'mindset', streamer:'Axiominus', text:"Il y a une adrénaline à 'se mettre dans la merde' — se fixer un challenge ambitieux. C'est comme ça qu'on est vraiment productif. Le confort ne fait pas progresser autant que la pression d'un objectif difficile.", vod:'2732844990', tc:'18m10s' },
+  { id:50, cat:'mindset', streamer:'Axiominus', text:"Sans les streams ou les projets perso réguliers, il est difficile de maintenir une activité créative à côté du travail. Avoir un rendez-vous régulier avec sa pratique — même court — c'est ce qui permet de ne pas perdre le fil.", vod:'2733789329', tc:'21m12s' },
+  { id:51, cat:'mindset', streamer:'Axiominus', text:"Attendre avant de faire un artbook — vouloir être plus confirmé. Pour l'instant ses créations sont encore trop génériques. Mieux vaut attendre d'avoir un vrai style avant de se lancer sur un gros projet personnel.", vod:'2728136190', tc:'17m01s' },
+  { id:52, cat:'mindset', streamer:'Axiominus', text:"Il faut taffer et progresser — tester des trucs. Les streams perso donnent l'espace pour explorer des choses en dehors du taf professionnel.", vod:'2731222981', tc:'06m11s' },
+  { id:53, cat:'mindset', streamer:'Axiominus', text:"Pratiquer l'anglais en faisant du live avec des anglophones — pendant 2h on est obligé de parler anglais, lire le chat, expliquer ce qu'on fait. Stressant au début mais ça forge vraiment.", vod:'2733789329', tc:'00m04s' },
+  { id:54, cat:'mindset', streamer:'Axiominus', text:"Ce qui vaut vraiment dans les écoles d'art c'est surtout les contacts avec l'industrie en fin de cursus.", vod:'2731222981', tc:'28m02s' },
+  { id:55, cat:'mindset', streamer:'Axiominus', text:"Les artistes perdent du travail à cause de l'IA — c'est un fait vérifiable. Il y a vraiment des licenciements dans l'industrie, pas dans toutes les boîtes, mais ça arrive.", vod:'2731222981', tc:'21m44s' },
+  { id:56, cat:'pratique', streamer:'Axiominus', text:"Pour les textures, peindre à la main sur Photoshop donne plus de contrôle sur le rendu stylisé. Substance peut donner un look trop réaliste ou générique si on n'est pas à l'aise avec l'outil.", vod:'2733789329', tc:'09m44s' },
+  { id:57, cat:'pratique', streamer:'Axiominus', text:"Blender est tellement mieux que 3DS Max. Les raccourcis sont bien pensés, c'est 10 fois mieux. Si on vient de 3DS Max, ne pas avoir peur du changement.", vod:'2733789329', tc:'14m34s' },
+  { id:58, cat:'pratique', streamer:'Axiominus', text:"Garder une habitude de faire des avant/après de son travail. C'est satisfaisant de voir la progression et ça permet de mesurer objectivement le chemin parcouru.", vod:'2732380954', tc:'16m37s' },
+  { id:59, cat:'pratique', streamer:'Axiominus', text:"Pour les retours d'élèves, préférer des voicenotes plutôt que des messages écrits — c'est plus simple pour expliquer des concepts visuels.", vod:'2732380954', tc:'12m24s' },
+  { id:60, cat:'pratique', streamer:'Axiominus', text:"Pour les études d'anat avec une référence, on peut y aller plus en mode 'je reproduis'. Mais si on crée de mémoire, être plus méthodique : buste, tête, lignes directrices des jambes.", vod:'2730407206', tc:'02m54s' },
+];
+
+let deleted = JSON.parse(localStorage.getItem('twt_deleted') || '[]');
+let screenshots = JSON.parse(localStorage.getItem('twt_screenshots') || '{}');
+let currentFilter = 'all';
+let currentFileTarget = null;
+
+function vodUrl(vod, tc) { return `https://www.twitch.tv/videos/${vod}?t=${tc}`; }
+function tcLabel(tc) { return tc.replace('m',':').replace('s',''); }
+
+function buildCard(tip, isDeleted) {
+  const img = screenshots[tip.id] || null;
+  return `
+  <div class="tip-card${isDeleted?' deleted':''}" id="card-${tip.id}" data-cat="${tip.cat}">
+    <div class="card-top">
+      <div class="streamer-chip"><span class="streamer-dot"></span>${tip.streamer}</div>
+      ${isDeleted
+        ? `<button class="restore-btn" onclick="restoreTip(${tip.id})" title="Restaurer">↩</button>`
+        : `<button class="delete-btn" onclick="deleteTip(${tip.id})" title="Supprimer">✕</button>`}
+    </div>
+    ${img ? `<div class="screenshot-zone"><img src="${img}" alt="capture"></div>` : ''}
+    <p class="tip-text">${tip.text}</p>
+    <div class="card-footer">
+      <span class="cat-tag">${tip.cat}</span>
+      ${!img && !isDeleted ? `<button class="screenshot-placeholder" onclick="addScreenshot(${tip.id})">+ capture d'écran</button>` : ''}
+      <a class="vod-link" href="${vodUrl(tip.vod, tip.tc)}" target="_blank">${tcLabel(tip.tc)}</a>
+    </div>
+  </div>`;
+}
+
+function render() {
+  const activeTips = TIPS.filter(t => !deleted.includes(t.id));
+  const filtered = currentFilter === 'all' ? activeTips : activeTips.filter(t => t.cat === currentFilter);
+  document.getElementById('bento').innerHTML = filtered.map(t => buildCard(t, false)).join('');
+
+  const deletedTips = TIPS.filter(t => deleted.includes(t.id));
+  const empty = document.getElementById('deleted-empty');
+  empty.style.display = deletedTips.length === 0 ? 'block' : 'none';
+  document.getElementById('bento-deleted').innerHTML = deletedTips.map(t => buildCard(t, true)).join('');
+
+  const badge = document.getElementById('deleted-badge');
+  badge.textContent = deleted.length;
+  badge.style.display = deleted.length > 0 ? 'inline-flex' : 'none';
+  document.getElementById('stat-total').textContent = activeTips.length;
+}
+
+function deleteTip(id) {
+  if (!deleted.includes(id)) deleted.push(id);
+  localStorage.setItem('twt_deleted', JSON.stringify(deleted));
+  render();
+}
+
+function restoreTip(id) {
+  deleted = deleted.filter(d => d !== id);
+  localStorage.setItem('twt_deleted', JSON.stringify(deleted));
+  render();
+}
+
+function filter(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-tips').style.display = tab === 'tips' ? 'block' : 'none';
+  document.getElementById('tab-deleted').style.display = tab === 'deleted' ? 'block' : 'none';
+}
+
+function addScreenshot(id) {
+  currentFileTarget = id;
+  document.getElementById('file-input').click();
+}
+
+document.getElementById('file-input').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file || !currentFileTarget) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    screenshots[currentFileTarget] = ev.target.result;
+    localStorage.setItem('twt_screenshots', JSON.stringify(screenshots));
+    render();
+  };
+  reader.readAsDataURL(file);
+  this.value = '';
+});
+
+document.getElementById('tab-deleted').style.display = 'none';
+render();
+</script>
+</body>
+</html>
