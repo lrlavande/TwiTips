@@ -23,7 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests anthropic yt-dlp faster-whisper
+          pip install requests anthropic faster-whisper
+          pip install -U yt-dlp
 
       - name: Check for new VODs and update tips
         env:
