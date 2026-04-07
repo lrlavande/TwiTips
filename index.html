@@ -437,12 +437,10 @@ if %errorlevel%==0 (
   goto :found
 )
 
-:: Cherche dans WinGet (tous les utilisateurs possibles)
-for /d %%D in ("%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg*") do (
-  if exist "%%D\\ffmpeg-*\\bin\\ffmpeg.exe" (
-    for /d %%V in ("%%D\\ffmpeg-*") do set FFMPEG_PATH=%%V\\bin\\ffmpeg.exe
-    goto :found
-  )
+:: Cherche dans WinGet avec le chemin exact
+for /r "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages" %%F in (ffmpeg.exe) do (
+  set FFMPEG_PATH=%%F
+  goto :found
 )
 
 :: Cherche dans Program Files
@@ -451,7 +449,6 @@ if exist "C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe" (
   goto :found
 )
 
-:: Cherche dans C:\\ffmpeg
 if exist "C:\\ffmpeg\\bin\\ffmpeg.exe" (
   set FFMPEG_PATH=C:\\ffmpeg\\bin\\ffmpeg.exe
   goto :found
