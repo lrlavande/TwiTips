@@ -11,7 +11,7 @@ TWITCH_CLIENT_ID     = os.environ['TWITCH_CLIENT_ID']
 TWITCH_CLIENT_SECRET = os.environ['TWITCH_CLIENT_SECRET']
 ANTHROPIC_API_KEY    = os.environ['ANTHROPIC_API_KEY']
 STREAMER_LOGIN       = 'axiominus'
-PROCESSED_FILE       = 'processed_vods.txt'
+PROCESSED_FILE = 'scripts/processed_vods.txt'
 INDEX_FILE           = 'index.html'
 
 # ── Twitch API ───────────────────────────────────────────
