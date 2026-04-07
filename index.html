@@ -437,8 +437,8 @@ if %errorlevel%==0 (
   goto :found
 )
 
-:: Cherche dans WinGet avec le chemin exact
-for /r "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages" %%F in (ffmpeg.exe) do (
+:: Cherche ffmpeg.exe dans WinGet via dir /s /b (trouve le bon chemin bin)
+for /f "delims=" %%F in ('dir /s /b "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\*ffmpeg.exe" 2^>nul ^| findstr "\\\\bin\\\\ffmpeg.exe"') do (
   set FFMPEG_PATH=%%F
   goto :found
 )
