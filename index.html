@@ -391,7 +391,7 @@ function downloadBat(tip) {
   const bat = `@echo off
 echo Telechargement du clip tip_${tip.id} (${tip.cat})...
 echo VOD: ${tip.vod} @ ${tip.tc}
-python -m yt_dlp --download-sections "*${start}-${end}" --force-keyframes-at-cuts -f "best[height<=720]" -o "${out}" ${url}
+python -m yt_dlp --download-sections "*${start}-${end}" --force-keyframes-at-cuts -o "${out}" ${url}
 echo.
 echo Clip sauvegarde dans ${out}
 echo Tu peux maintenant l'uploader sur archive.org
