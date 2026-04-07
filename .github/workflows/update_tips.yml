@@ -2,8 +2,8 @@ name: Update TwiTips
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Tourne tous les jours à 6h du matin
-  workflow_dispatch:       # Permet de lancer manuellement aussi
+    - cron: '0 6 * * *'
+  workflow_dispatch:
 
 jobs:
   check-new-vods:
@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Install ffmpeg
+        run: sudo apt-get install -y ffmpeg
 
       - name: Install dependencies
         run: |
