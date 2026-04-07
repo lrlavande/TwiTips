@@ -124,6 +124,32 @@ input[type=file] { display: none; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(59,107,255,0.2); border-radius: 3px; }
+
+.setup-panel { display: none; padding: 2rem; }
+.setup-content { max-width: 680px; margin: 0 auto; }
+.setup-intro { margin-bottom: 2rem; }
+.setup-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--text); margin-bottom: 0.5rem; }
+.setup-desc { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; }
+.setup-steps { display: flex; flex-direction: column; gap: 1rem; }
+.setup-step { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(59,107,255,0.05); }
+.setup-step-ok { border-color: rgba(24,160,106,0.3); background: rgba(24,160,106,0.03); }
+.step-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); }
+.setup-step-ok .step-header { border-bottom-color: rgba(24,160,106,0.2); }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue-soft); border: 1.5px solid rgba(59,107,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; color: var(--blue-1); flex-shrink: 0; }
+.setup-step-ok .step-num { background: rgba(24,160,106,0.1); border-color: rgba(24,160,106,0.3); color: var(--green); font-size: 0.9rem; }
+.step-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+.step-sub { font-size: 0.72rem; color: var(--text-3); margin-top: 0.1rem; }
+.step-body { padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.step-note { font-size: 0.82rem; color: var(--text-2); line-height: 1.6; }
+.step-note strong { color: var(--text); }
+.step-note em { color: var(--blue-1); font-style: normal; font-weight: 600; }
+.cmd-block { display: flex; align-items: center; gap: 0.6rem; background: #1a2444; border-radius: 10px; padding: 0.6rem 0.9rem; }
+.cmd-block code { flex: 1; font-family: 'Courier New', monospace; font-size: 0.82rem; color: #a8d8ff; letter-spacing: 0.02em; }
+.copy-btn { padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid rgba(168,216,255,0.2); background: rgba(168,216,255,0.08); color: rgba(168,216,255,0.7); font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.18s; letter-spacing: 0.05em; }
+.copy-btn:hover { background: rgba(168,216,255,0.18); color: #a8d8ff; border-color: rgba(168,216,255,0.4); }
+.copy-btn.copied { background: rgba(24,160,106,0.2); color: #4ade80; border-color: rgba(74,222,128,0.3); }
+.setup-link { display: inline-flex; align-items: center; font-size: 0.82rem; font-weight: 700; color: var(--blue-1); text-decoration: none; padding: 0.3rem 0; transition: color 0.18s; }
+.setup-link:hover { color: var(--blue-2); text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -142,6 +168,7 @@ input[type=file] { display: none; }
 <div class="tabs">
   <button class="tab active" onclick="switchTab('tips',this)">Tips</button>
   <button class="tab" onclick="switchTab('deleted',this)">Supprimés <span class="badge" id="deleted-badge" style="display:none">0</span></button>
+  <button class="tab" onclick="switchTab('setup',this)">⚙ Setup</button>
 </div>
 
 <div id="tab-tips">
@@ -174,6 +201,82 @@ input[type=file] { display: none; }
     </div>
   </div>
   <main><div class="bento-grid" id="bento"></div></main>
+</div>
+
+<div id="tab-setup" class="setup-panel" style="display:none">
+  <div class="setup-content">
+    <div class="setup-intro">
+      <h2 class="setup-title">Installation</h2>
+      <p class="setup-desc">Pour télécharger les clips depuis le site, tu as besoin de 3 outils sur ton PC Windows. Suis les étapes dans l'ordre — chaque commande se copie en un clic.</p>
+    </div>
+
+    <div class="setup-steps">
+
+      <div class="setup-step">
+        <div class="step-header">
+          <span class="step-num">1</span>
+          <div>
+            <div class="step-title">Python</div>
+            <div class="step-sub">Le langage qui fait tourner yt-dlp</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p class="step-note">Vérifie d'abord si Python est déjà installé :</p>
+          <div class="cmd-block"><code>python --version</code><button class="copy-btn" onclick="copyCmd(this,'python --version')">Copier</button></div>
+          <p class="step-note">Si tu vois <em>Python 3.x.x</em> → passe à l'étape 2. Sinon, télécharge Python ici :</p>
+          <a class="setup-link" href="https://www.python.org/downloads/" target="_blank">↗ python.org/downloads</a>
+          <p class="step-note">⚠ Pendant l'install, coche bien <strong>"Add Python to PATH"</strong> en bas de la fenêtre.</p>
+        </div>
+      </div>
+
+      <div class="setup-step">
+        <div class="step-header">
+          <span class="step-num">2</span>
+          <div>
+            <div class="step-title">yt-dlp</div>
+            <div class="step-sub">L'outil qui télécharge les VODs Twitch</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p class="step-note">Ouvre un <strong>cmd</strong> (touches Win+R → tape <em>cmd</em> → Entrée) et colle ça :</p>
+          <div class="cmd-block"><code>pip install yt-dlp</code><button class="copy-btn" onclick="copyCmd(this,'pip install yt-dlp')">Copier</button></div>
+          <p class="step-note">Pour vérifier que c'est bien installé :</p>
+          <div class="cmd-block"><code>python -m yt_dlp --version</code><button class="copy-btn" onclick="copyCmd(this,'python -m yt_dlp --version')">Copier</button></div>
+        </div>
+      </div>
+
+      <div class="setup-step">
+        <div class="step-header">
+          <span class="step-num">3</span>
+          <div>
+            <div class="step-title">ffmpeg</div>
+            <div class="step-sub">Nécessaire pour découper les clips à la bonne durée</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p class="step-note">Toujours dans le cmd, colle ça (Windows 10/11) :</p>
+          <div class="cmd-block"><code>winget install ffmpeg</code><button class="copy-btn" onclick="copyCmd(this,'winget install ffmpeg')">Copier</button></div>
+          <p class="step-note">Ça télécharge ~230 MB et s'installe tout seul. Une fois fini, ferme le cmd et rouvre-en un nouveau, puis vérifie :</p>
+          <div class="cmd-block"><code>ffmpeg -version</code><button class="copy-btn" onclick="copyCmd(this,'ffmpeg -version')">Copier</button></div>
+        </div>
+      </div>
+
+      <div class="setup-step setup-step-ok">
+        <div class="step-header">
+          <span class="step-num">✓</span>
+          <div>
+            <div class="step-title">Tout est prêt !</div>
+            <div class="step-sub">Tu peux télécharger les clips depuis les cartes</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p class="step-note">Sur chaque tip, clique sur <strong>⬇ clip</strong> — un fichier <em>.bat</em> se télécharge. Double-clique dessus, ça lance le téléchargement automatiquement dans <code>C:\clips\</code>.</p>
+          <p class="step-note" style="margin-top:0.6rem">Le clip fait ±5 min autour du timecode du tip (2 min avant, 3 min après).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <div id="tab-deleted" class="deleted-panel">
@@ -320,7 +423,54 @@ function downloadBat(tip) {
   const end    = secondsToTime(center + 180);
   const url    = `https://www.twitch.tv/videos/${tip.vod}`;
   const out    = `C:\\clips\\tip_${String(tip.id).padStart(3,'0')}_${tip.cat}.mp4`;
-  const bat = `@echo off\necho Telechargement du clip tip_${tip.id} (${tip.cat})...\necho VOD: ${tip.vod} @ ${tip.tc}\npython -m yt_dlp --download-sections "*${start}-${end}" --force-keyframes-at-cuts -o "${out}" ${url}\necho.\necho Clip sauvegarde dans ${out}\npause`;
+
+  const bat = `@echo off
+echo Telechargement du clip tip_${tip.id} (${tip.cat})...
+echo VOD: ${tip.vod} @ ${tip.tc}
+
+set FFMPEG_PATH=
+
+:: Cherche ffmpeg dans le PATH d'abord
+where ffmpeg >nul 2>&1
+if %errorlevel%==0 (
+  set FFMPEG_PATH=ffmpeg
+  goto :found
+)
+
+:: Cherche dans WinGet (tous les utilisateurs possibles)
+for /d %%D in ("%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg*") do (
+  if exist "%%D\\ffmpeg-*\\bin\\ffmpeg.exe" (
+    for /d %%V in ("%%D\\ffmpeg-*") do set FFMPEG_PATH=%%V\\bin\\ffmpeg.exe
+    goto :found
+  )
+)
+
+:: Cherche dans Program Files
+if exist "C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe" (
+  set FFMPEG_PATH=C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe
+  goto :found
+)
+
+:: Cherche dans C:\\ffmpeg
+if exist "C:\\ffmpeg\\bin\\ffmpeg.exe" (
+  set FFMPEG_PATH=C:\\ffmpeg\\bin\\ffmpeg.exe
+  goto :found
+)
+
+echo ERREUR : ffmpeg introuvable sur ce PC.
+echo Installe-le avec : winget install ffmpeg
+echo Puis ferme et reouvre cette fenetre.
+pause
+exit /b 1
+
+:found
+echo ffmpeg trouve : %FFMPEG_PATH%
+if not exist "C:\\clips" mkdir "C:\\clips"
+python -m yt_dlp --ffmpeg-location "%FFMPEG_PATH%" --download-sections "*${start}-${end}" --force-keyframes-at-cuts -o "${out}" ${url}
+echo.
+echo Clip sauvegarde dans ${out}
+pause`;
+
   const blob = new Blob([bat], { type: 'text/plain' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -328,6 +478,14 @@ function downloadBat(tip) {
   a.click();
   URL.revokeObjectURL(a.href);
   showToast(`⬇ tip_${String(tip.id).padStart(3,'0')}_${tip.cat}.bat — double-clique pour lancer !`);
+}
+
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copié !';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
+  });
 }
 
 function showToast(msg) {
@@ -478,6 +636,7 @@ function switchTab(tab, btn) {
   btn.classList.add('active');
   document.getElementById('tab-tips').style.display    = tab === 'tips'    ? 'block' : 'none';
   document.getElementById('tab-deleted').style.display = tab === 'deleted' ? 'block' : 'none';
+  document.getElementById('tab-setup').style.display   = tab === 'setup'   ? 'block' : 'none';
 }
 function addScreenshot(id) {
   currentFileTarget = id;
