@@ -237,7 +237,7 @@ input[type=file] { display: none; }
   <div class="logo">TwiTips</div>
   <div class="tagline">Art tips from Twitch live streams</div>
   <div class="stats-row">
-    <div class="stat"><strong id="stat-total">60</strong><span>Tips</span></div>
+    <div class="stat"><strong id="stat-total">76</strong><span>Tips</span></div>
     <div class="stat"><strong>7</strong><span>VODs</span></div>
     <div class="stat"><strong>8</strong><span>Catégories</span></div>
     <div class="stat"><strong>1</strong><span>Streamers</span></div>
@@ -350,6 +350,24 @@ const TIPS = [
   { id:58, cat:'pratique',   streamer:'Axiominus', text:"Garder une habitude de faire des avant/après de son travail. C'est satisfaisant de voir la progression et ça permet de mesurer objectivement le chemin parcouru.", vod:'2732380954', tc:'1h16m37s' },
   { id:59, cat:'pratique',   streamer:'Axiominus', text:"Pour les retours d'élèves, préférer des voicenotes plutôt que des messages écrits — c'est plus simple pour expliquer des concepts visuels.", vod:'2732380954', tc:'1h42m24s' },
   { id:60, cat:'pratique',   streamer:'Axiominus', text:"Pour les études d'anat avec une référence, on peut y aller plus en mode 'je reproduis'. Mais si on crée de mémoire, être plus méthodique : buste, tête, lignes directrices des jambes.", vod:'2730407206', tc:'32m54s' },
+
+  { id:61, cat:'workflow', streamer:'Axiominus', text:"Lors de la phase de sketch et d\'exploration, ne vous fixez pas sur une seule idée. Testez plusieurs directions (fantastique, futuriste, etc.) et ne vous fermez aucune porte. Prenez le temps de chercher des références et d\'expérimenter sans pression.", vod:'2742001469', tc:'13m27s' },
+  { id:62, cat:'design', streamer:'Axiominus', text:"Pour rendre un personnage plus original, travaillez le worldbuilding dans les détails : ajoutez des gravures sur une jambe robot, donnez une forme particulière aux éléments mécaniques, mettez des motifs spécifiques sur les vêtements (écharpe, etc.). Chaque élément doit avoir une raison d\'être et une particularité.", vod:'2742001469', tc:'13m47s' },
+  { id:63, cat:'mindset', streamer:'Axiominus', text:"N\'essayez pas d\'aller trop vite dans la phase de recherche. Si vous avez du temps, utilisez-le pour explorer des références et établir solidement votre idée avant de passer à l\'exécution.", vod:'2742001469', tc:'16m56s' },
+  { id:64, cat:'design', streamer:'Axiominus', text:"Pour éviter un look trop sci-fi générique avec des formes très anguleuses, essayez d\'utiliser des formes plus rondes. Cela permet de récupérer un côté fantasy ou rustique dans le design.", vod:'2742001469', tc:'36m26s' },
+  { id:65, cat:'workflow', streamer:'Axiominus', text:"Quand vous tournez en rond sur vos idées, c\'est souvent un signe que vous manquez de références. Retournez chercher de nouvelles refs pour débloquer de nouvelles directions.", vod:'2742001469', tc:'53m15s' },
+  { id:66, cat:'design', streamer:'Axiominus', text:"Mixer des univers visuels différents (combinaison sci-fi + vêtements traditionnels/rustiques) permet de créer des designs plus intéressants et originaux. Cherchez à combiner des éléments qui ne vont pas ensemble a priori.", vod:'2742001469', tc:'33m45s' },
+  { id:67, cat:'silhouette', streamer:'Axiominus', text:"Parfois, dessiner en blocs (formes simples et massives) aide à poser rapidement la silhouette et les proportions d\'un personnage avant d\'entrer dans les détails.", vod:'2742001469', tc:'27m46s' },
+  { id:68, cat:'design', streamer:'Axiominus', text:"Un petit accessoire comme une casquette ou un chapeau peut immédiatement donner un côté rustique ou une personnalité au personnage. Les accessoires simples ont un fort impact sur le feeling du design.", vod:'2742001469', tc:'55m29s' },
+  { id:69, cat:'render', streamer:'Axiominus', text:"Utiliser une couleur qui \'pop\' (comme des lunettes colorées ou un médaillon) permet de ramener de l\'intérêt visuel vers une zone spécifique du personnage.", vod:'2742001469', tc:'11m39s' },
+  { id:70, cat:'silhouette', streamer:'Axiominus', text:"Quand vous observez des références (comme des barbes de vieux personnages), notez comment les formes se comportent : par exemple, une barbe qui porte sur les côtés donne plus de shape et d\'intérêt à la silhouette.", vod:'2742001469', tc:'31m51s' },
+
+  { id:71, cat:'workflow', streamer:'Axiominus', text:"Pour un challenge de concept art, le render ultra poussé n\'est pas obligatoire. Un sketch avec une palette couleur bien fait suffit amplement. L\'important c\'est le design, pas le niveau de finition.", vod:'2741197968', tc:'24m08s' },
+  { id:72, cat:'workflow', streamer:'Axiominus', text:"Quand on commence un projet de character design, la première étape c\'est de chercher beaucoup de références avant de commencer à dessiner. On commence par les refs, puis quelques croquis et idées.", vod:'2741197968', tc:'22m00s' },
+  { id:73, cat:'design', streamer:'Axiominus', text:"Pour un concept art de personnage, pensez à designer aussi ses outils et ce avec quoi il interagit (ce qu\'il récolte, ses animaux, etc.). Ça enrichit le design et raconte une histoire sur le personnage.", vod:'2741197968', tc:'21m02s' },
+  { id:74, cat:'mindset', streamer:'Axiominus', text:"Peu importe ton niveau, participer à des challenges avec un thème commun est un bon exercice pour progresser. L\'important c\'est la participation et le processus d\'apprentissage, pas le produit fini parfait.", vod:'2741197968', tc:'27m28s' },
+  { id:75, cat:'pratique', streamer:'Axiominus', text:"N\'hésite pas à demander des retours (reviews) pendant le processus de création, pas seulement à la fin. Envoie tes WIPs pour avoir des feedbacks en cours de route.", vod:'2741197968', tc:'28m10s' },
+  { id:76, cat:'render', streamer:'Axiominus', text:"Pour animer une scène 2D de manière simple et efficace, on peut utiliser des astuces comme des calques en opacité, des images qui se déplacent, et de petites animations subtiles (feuilles qui bougent, étoiles qui clignotent, particules). C\'est de la \'magouille\', pas de la vraie animation, mais ça fonctionne.", vod:'2741197968', tc:'13m21s' },
 ];
 
 let deleted     = JSON.parse(localStorage.getItem('twt_deleted')    || '[]');
