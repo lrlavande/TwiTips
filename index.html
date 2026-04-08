@@ -431,9 +431,8 @@ echo VOD: ${tip.vod} @ ${tip.tc}
 set FFMPEG_PATH=
 
 :: Cherche ffmpeg dans le PATH d'abord
-where ffmpeg >nul 2>&1
-if %errorlevel%==0 (
-  set FFMPEG_PATH=ffmpeg
+for /f "delims=" %%F in ('where ffmpeg 2^>nul') do (
+  set FFMPEG_PATH=%%F
   goto :found
 )
 
