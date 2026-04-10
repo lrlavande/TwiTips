@@ -11,7 +11,7 @@ TWITCH_CLIENT_ID     = os.environ['TWITCH_CLIENT_ID']
 TWITCH_CLIENT_SECRET = os.environ['TWITCH_CLIENT_SECRET']
 ANTHROPIC_API_KEY    = os.environ['ANTHROPIC_API_KEY']
 STREAMER_LOGIN       = 'axiominus'
-PROCESSED_FILE = 'scripts/processed_vods.txt'
+PROCESSED_FILE       = 'processed_vods.txt'
 INDEX_FILE           = 'index.html'
 
 # ── Twitch API ───────────────────────────────────────────
@@ -102,6 +102,9 @@ Transcription :
     return json.loads(raw)
 
 # ── Convert seconds to timecode ──────────────────────────
+def format_vod_date(published_at):
+    return published_at[:10] if published_at else '?'
+
 def seconds_to_tc(s):
     s = int(s)
     h = s // 3600
@@ -112,7 +115,7 @@ def seconds_to_tc(s):
     return f"{m}m{sec:02d}s"
 
 # ── Inject new tips into index.html ─────────────────────
-def inject_tips(new_tips, vod_id, streamer):
+def inject_tips(new_tips, vod_id, streamer, vod_date):
     html = Path(INDEX_FILE).read_text(encoding='utf-8')
 
     # Trouver le dernier id existant
@@ -124,7 +127,7 @@ def inject_tips(new_tips, vod_id, streamer):
         tc = seconds_to_tc(tip.get('tc_seconds', 0))
         text = tip['text'].replace("'", "\\'").replace('"', '\\"')
         cat = tip.get('cat', 'design')
-        new_js += f"\n  {{ id:{next_id}, cat:'{cat}', streamer:'{streamer}', text:\"{text}\", vod:'{vod_id}', tc:'{tc}' }},"
+        new_js += f"\n  {{ id:{next_id}, cat:'{cat}', streamer:'{streamer}', date:'{vod_date}', text:\"{text}\", vod:'{vod_id}', tc:'{tc}' }},"
         next_id += 1
 
     # Insérer avant la fermeture du tableau TIPS
@@ -156,8 +159,9 @@ def main():
         return
 
     for vod in new_vods:
-        vod_id = vod['id']
-        print(f"\n📺 Nouveau VOD détecté : {vod_id} — {vod['title']}")
+        vod_id   = vod['id']
+        vod_date = format_vod_date(vod.get('published_at', '?'))
+        print(f"\nNouveau VOD détecté : {vod_id} — {vod['title']} ({vod_date})")
 
         try:
             print("⬇ Téléchargement audio...")
@@ -171,7 +175,7 @@ def main():
 
             if tips:
                 print(f"✨ {len(tips)} tips trouvés !")
-                inject_tips(tips, vod_id, 'Axiominus')
+                inject_tips(tips, vod_id, 'Axiominus', vod_date)
             else:
                 print("😶 Aucun conseil trouvé dans ce VOD.")
 
