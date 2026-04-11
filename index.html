@@ -158,7 +158,7 @@ input[type=file] { display: none; }
   <div class="logo">TwiTips</div>
   <div class="tagline">Art tips from Twitch live streams</div>
   <div class="stats-row">
-    <div class="stat"><strong id="stat-total">87</strong><span>Tips</span></div>
+    <div class="stat"><strong id="stat-total">104</strong><span>Tips</span></div>
     <div class="stat"><strong id="stat-vods">0</strong><span>VODs</span></div>
     <div class="stat"><strong id="stat-cats">0</strong><span>Catégories</span></div>
     <div class="stat"><strong id="stat-streamers">0</strong><span>Streamers</span></div>
@@ -391,6 +391,25 @@ const TIPS = [
   { id:85, cat:'mindset', streamer:'Axiominus', text:"Ayez un ou des artistes de référence avec un style directeur clair plutôt que de piocher des inspirations trop variées et disparates. Cela donne une cohérence à votre travail.", vod:'2743594241', tc:'29m04s' },
   { id:86, cat:'meca', streamer:'Axiominus', text:"Le bras robot par défaut (un simple bras mécanique générique) est la chose la plus random et basique que vous puissiez faire en mecha design. Cherchez à sortir du design par défaut.", vod:'2743594241', tc:'17m22s' },
   { id:87, cat:'pratique', streamer:'Axiominus', text:"Faites des exercices où vous partez d\'une image aléatoire pour créer un personnage. Ce type de challenge force la créativité et pousse à trouver des designs originaux.", vod:'2743594241', tc:'19m26s' },
+
+  { id:88, cat:'design', streamer:'Axiominus', date:'2026-04-09', text:"En character design, évitez de rester trop sage et trop collé à vos références. Forcez-vous à sortir des sentiers battus et à tester des choses un peu random pour trouver des designs avec plus de personnalité.", vod:'2743594241', tc:'15m28s' },
+  { id:89, cat:'silhouette', streamer:'Axiominus', date:'2026-04-09', text:"Travaillez la gesture et l\'expressivité de vos personnages. Un personnage statique avec un bras vaguement levé et sans expression manque de personnalité. C\'est la gesture qui donne vie au character design.", vod:'2743594241', tc:'14m22s' },
+  { id:90, cat:'pratique', streamer:'Axiominus', date:'2026-04-09', text:"Réapprenez et maintenez vos connaissances en anatomie (muscles, jonctions, avant-bras). Quand vous devez dessiner des poses dynamiques avec des raccourcis, le manque de connaissance anatomique se voit immédiatement.", vod:'2743594241', tc:'21m38s' },
+  { id:91, cat:'workflow', streamer:'Axiominus', date:'2026-04-09', text:"Un sketch rapide avec l\'énergie et le concept juste, même imprécis et pas détaillé, est souvent suffisant et plus impactant qu\'un dessin trop poussé. L\'énergie prime sur la précision dans les premières étapes.", vod:'2743594241', tc:'22m44s' },
+  { id:92, cat:'workflow', streamer:'Axiominus', date:'2026-04-09', text:"En phase de recherche de design, ne rendez pas. Restez au sketch et aplat de couleur, puis passez à une autre idée. Ne poussez le render que si vous êtes vraiment sûr de votre idée.", vod:'2743594241', tc:'28m23s' },
+  { id:93, cat:'render', streamer:'Axiominus', date:'2026-04-09', text:"Ne rendez jamais une seule partie de votre dessin alors que le reste n\'a rien. Établissez d\'abord toutes les couleurs de votre personnage ou objet de façon claire avant de passer au render.", vod:'2743594241', tc:'30m51s' },
+  { id:94, cat:'render', streamer:'Axiominus', date:'2026-04-09', text:"Le render est un accessoire, surtout en character design et concept art. Ce qui compte c\'est créer quelque chose qui fonctionne et impacte. Ajoutez du contraste et des accents de couleur pour guider le regard vers votre focal point.", vod:'2743594241', tc:'31m33s' },
+  { id:95, cat:'mindset', streamer:'Axiominus', date:'2026-04-09', text:"Avoir un artiste de référence dont vous suivez le style donne une ligne directrice claire. Sans cela, vous risquez de piocher des inspirations trop variées qui manquent de cohérence.", vod:'2743594241', tc:'29m04s' },
+  { id:96, cat:'pratique', streamer:'Axiominus', date:'2026-04-09', text:"Pour progresser en character design, faites des exercices où vous partez d\'une image aléatoire pour créer un personnage. Ce type de contrainte force la créativité et pousse à sortir de sa zone de confort.", vod:'2743594241', tc:'19m26s' },
+
+  { id:97, cat:'workflow', streamer:'Axiominus', date:'2026-04-07', text:"Lors de la phase de sketch, ne vous fixez pas sur une seule idée. Testez différentes directions (fantastique, futuriste, etc.) et ne vous fermez pas de portes. Prenez le temps d\'expérimenter et de chercher des références sans pression.", vod:'2742001469', tc:'13m27s' },
+  { id:98, cat:'mindset', streamer:'Axiominus', date:'2026-04-07', text:"N\'essayez pas d\'aller trop vite dans votre processus de recherche, surtout si vous avez du temps. Accordez-vous une bonne semaine pour chercher des références et établir une idée solide.", vod:'2742001469', tc:'16m56s' },
+  { id:99, cat:'design', streamer:'Axiominus', date:'2026-04-07', text:"Pour enrichir un design de personnage, travaillez le worldbuilding : ajoutez des détails narratifs comme des gravures sur une jambe robot, des motifs spécifiques sur une écharpe, ou des formes particulières aux éléments mécaniques. C\'est ce qui rend un personnage vraiment original plutôt que générique.", vod:'2742001469', tc:'13m43s' },
+  { id:100, cat:'design', streamer:'Axiominus', date:'2026-04-07', text:"Pour éviter un look trop sci-fi anguleux, privilégiez des formes plus rondes si vous voulez conserver un côté fantasy ou rustique dans votre design.", vod:'2742001469', tc:'36m29s' },
+  { id:101, cat:'silhouette', streamer:'Axiominus', date:'2026-04-07', text:"Les barbes et poils qui portent sur les côtés créent des shapes intéressantes. Observez comment ces éléments ajoutent du volume et de la silhouette au personnage.", vod:'2742001469', tc:'31m51s' },
+  { id:102, cat:'design', streamer:'Axiominus', date:'2026-04-07', text:"Un petit accessoire comme une casquette peut instantanément donner un côté rustique à un personnage et orienter tout son design.", vod:'2742001469', tc:'55m29s' },
+  { id:103, cat:'workflow', streamer:'Axiominus', date:'2026-04-07', text:"Quand vous tournez en rond sur vos idées, c\'est souvent un signe que vous manquez de références. Retournez chercher de nouvelles refs pour relancer votre inspiration.", vod:'2742001469', tc:'53m15s' },
+  { id:104, cat:'render', streamer:'Axiominus', date:'2026-04-07', text:"Utiliser une couleur qui \'pop\' (comme des lunettes colorées) permet de ramener de l\'intérêt visuel vers une zone spécifique du personnage.", vod:'2742001469', tc:'11m39s' },
 ];
 
 let deleted     = JSON.parse(localStorage.getItem('twt_deleted')    || '[]');
